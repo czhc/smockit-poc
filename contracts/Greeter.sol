@@ -20,8 +20,13 @@ contract Greeter {
 
     function setGreeting(string memory _greeting) public payable {
         require(msg.value > 0, "Please tip the Greeter");
+
+        // `call` is the recommended way of sending ether
+        // https://solidity-by-example.org/sending-ether/
         (bool success, ) = payable(tipJar).call{ value: msg.value }("");
+
         require(success, "Tip failed to add to TipJar");
+
         greeting = _greeting;
         console.log("Changed greeting from '%s' to '%s'", greeting, _greeting);
     }
