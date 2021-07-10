@@ -1,6 +1,6 @@
 # smockit-poc
 
-Validating how to properly mock `receive()`, `fallback()` and `call()` behaviors of a given Contract (e.g. _TipJar_) for unit-testing a dependent contract (e.g. _Greeter_)
+Validating how to properly mock `receive()`, `fallback()` and `call()` behaviors of a given Contract (e.g. `TipJar`) for unit-testing a dependent contract (e.g. `Greeter`)
 
 See proof in `test/Greeter.test.js`
 
