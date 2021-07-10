@@ -9,7 +9,7 @@ See proof in `test/Greeter.test.js`
 1. Clone this repo
 2. `npx hardhat compile && npx hardhat test`.
 
-The test _does not set greeting if TipJar fails to update_ fails because _TipJar.receive()_ is not successfully stubbed.
+The test `"does not set greeting if TipJar fails to update"` fails because `TipJar.receive()` is not successfully stubbed to return a `(false)` response. 
 
 
 ### Links
