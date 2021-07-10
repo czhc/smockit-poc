@@ -19,9 +19,9 @@ describe('Greeter', function(){
 
     it('requires a tip', async() => {
         await expect(
-          this.greeter.setGreeting("hello")
-          ).to
-          .be.revertedWith('Please tip the Greeter');
+                  this.greeter.setGreeting("hello")
+              ).to
+              .be.revertedWith('Please tip the Greeter');
     })
 
     it('sets greeting ', async() => {
@@ -46,16 +46,24 @@ describe('Greeter', function(){
 
         // we now have a mockable Jar (mockJar) <-> Greeter (mockGreeter)
 
-        /**
+        // mock instances do not load ethers signers by default
+        const user = (await ethers.getSigners())[0]
+
+        /** positive case:
+         * checking mocked Greeter can still setGreeting
+         **/
+        await mockGreeter.connect(user).setGreeting('Hello!', { value: 100 })
+        expect(await mockGreeter.greet()).to.equal('Hello!');
+
+        /** negative case:
          * mocking a sure-fail `receive` function on the Jar
          * from the line Greeter.sol#L23
          * (bool success, ) = payable(tipJar).call{ value: msg.value }("");
          * */
 
         mockJar.smocked.receive.will.return.with((false))
+        mockJar.smocked.call.will.return.with((false))
 
-        // mock instances do not load ethers signers by default
-        const user = (await ethers.getSigners())[0]
         await expect(
           mockGreeter.connect(user).setGreeting('Hello!', { value: 100 })
           ).to
