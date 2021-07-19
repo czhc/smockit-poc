@@ -14,8 +14,13 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
+  const TipJar = await hre.ethers.getContractFactory('TipJar');
+  const tipjar = await TipJar.deploy();
+  await tipjar.deployed();
+  console.log("TipJar deployed to: ", tipjar.address);
+  
   const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const greeter = await Greeter.deploy(tipjar.address);
 
   await greeter.deployed();
 
